@@ -16,14 +16,14 @@ document.addEventListener('DOMContentLoaded', () => {
         c.step(action)
         c.render(1 / frameRate * 1000)
     }, 1 / frameRate * 1000)
-})
-
-document.getElementById("cartpole-drawing").addEventListener("mousemove", e => {
-    let boundingRect = e.target.getBoundingClientRect() 
-    const mouseX = e.clientX - boundingRect.left - width / 2
-    if(mouseX > 0){
-        action = 3
-    } else {
-        action = -3
-    }
+    
+    document.getElementById("cartpole-drawing").addEventListener("mousemove", e => {
+        let boundingRect = e.target.getBoundingClientRect() 
+        const mouseX = e.clientX - boundingRect.left - width / 2
+        if(mouseX > 0){
+            action = 3
+        } else {
+            action = -3
+        }
+    })
 })
