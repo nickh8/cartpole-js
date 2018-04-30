@@ -1,0 +1,23 @@
+{
+  "name": "cartpole-js",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "browserify ./src/Cartpole.js -t babelify --standalone Cartpole > ./dist/Cartpole.js",
+    "build:min": "browserify ./src/Cartpole.js -t babelify --standalone Cartpole | uglifyjs  > ./dist/Cartpole-min.js",
+    "watch": "watchify ./src/Cartpole.js -t babelify --standalone Cartpole -o./dist/Cartpole.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babelify": "^8.0.0",
+    "browserify": "^16.2.0",
+    "uglify-js": "^3.3.23",
+    "watchify": "^3.11.0"
+  }
+}
