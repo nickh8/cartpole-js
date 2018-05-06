@@ -8,11 +8,17 @@
     <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="./dist/Cartpole-min.js"></script>
+    <!-- <script src="./dist/Cartpole.js"></script> -->
     <script src="./example/main.js"></script>
 </head>
 <body>
     <div style="display: flex; justify-content: center; margin-top: 100px">
         <svg id="cartpole-drawing"></svg>
+    </div>
+    <div style="margin-left: 30%; margin-top: 5%">
+        <p id="rewardP">Reward: -</p>
+        <p id="doneP">Done: -</p>
+        <button id="reset-button">reset</button>
     </div>
 </body>
 </html>

@@ -14,7 +14,6 @@ export class Cartpole{
                 poleHeight: options.poleHeight || 120,
                 g: options.g || 10
             }
-        console.log(this.options)
         this.options.massSum = this.options.massC + this.options.massP 
         this.initDrawing(svgContainer)
     }
@@ -35,7 +34,7 @@ export class Cartpole{
         this.svgContainer = d3.select("#cartpole-drawing")
             .attr("height", this.height)
             .attr("width", this.width)
-            .style("background", "grey")
+            .style("background", "#DDDDDD")
 
         this.line = this.svgContainer.append("line")
             .style("stroke", "black")
@@ -51,7 +50,7 @@ export class Cartpole{
             .attr("x", (d) => this.xScale(d) - cartWidth / 2)
             .attr("y", this.yScale(1) - cartHeight / 2)
             .attr("rx", 5)
-            .style("fill", "red")
+            .style("fill", "BurlyWood")
 
         this.poleG = this.svgContainer.append("g")
             .data([180])
@@ -67,8 +66,15 @@ export class Cartpole{
     }
 
     step(action = 0) {
+        if(this.done){
+            console.error("simulation ended, but called step method again")
+        }
+        if(!(action != 0 || action != 1)){
+            console.error("action", action, "is no valid action, choose 0 for left and 1 for right.")
+            return 
+        }
         const { massC, massP, poleL, forceMult, massSum, dt, g } = this.options
-        let F = action * forceMult
+        let F = action == 0 ? -1 : 1 * forceMult
         
         const thetaacc_num = g * Math.sin(this.theta) + Math.cos(this.theta) * (-F - massP * poleL * this.thetadot * this.thetadot * Math.sin(this.theta)) / massSum
         const thetaacc_den = poleL * (4/3 - massP * Math.pow(Math.cos(this.theta), 2) / massSum)
@@ -82,13 +88,22 @@ export class Cartpole{
 
         this.x = this.x + this.xdot * dt
         this.theta = this.theta + this.thetadot * dt
+
+        if(!this.done){
+            this.reward++
+        }
+        if(this.theta > Math.PI / 15 || this.theta < -Math.PI / 15) {
+            this.done = true
+        }
         return {
             state: {
                 x: this.x,
                 theta: this.theta,
                 xdot: this.xdot,
                 thetadot: this.thetadot
-            }
+            },
+            reward: this.reward,
+            done: this.done
         }
     }
 
@@ -117,5 +132,7 @@ export class Cartpole{
         this.theta = 0 + Math.random() * 0.01  -  0.005
         this.xdot = 0
         this.thetadot = 0
+        this.done = false
+        this.reward = 0
     }
 }
