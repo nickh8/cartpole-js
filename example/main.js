@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let svgContainer = d3.select("#cartpole-drawing")
         .attr("height", height)
         .attr("width", width)
-    let c = new Cartpole.Cartpole(svgContainer, {dt: 0.03, forceMult: 3})
+    let c = new Cartpole.Cartpole(svgContainer, {dt: 0.03, forceMult: 14})
     c.reset()
     setInterval(() => {
         const {state, reward, done} = c.step(action)
