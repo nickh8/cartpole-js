@@ -74,7 +74,7 @@ export class Cartpole{
             return 
         }
         const { massC, massP, poleL, forceMult, massSum, dt, g } = this.options
-        let F = action == 0 ? -1 : 1 * forceMult
+        let F = action == 0 ? -1 * forceMult : 1 * forceMult
         
         const thetaacc_num = g * Math.sin(this.theta) + Math.cos(this.theta) * (-F - massP * poleL * this.thetadot * this.thetadot * Math.sin(this.theta)) / massSum
         const thetaacc_den = poleL * (4/3 - massP * Math.pow(Math.cos(this.theta), 2) / massSum)
